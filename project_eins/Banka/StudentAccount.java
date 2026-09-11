@@ -1,15 +1,20 @@
-public class Account extends GenericAccount {
+public class StudentAccount extends GenericAccount {
+    public String school;
     
-    
-    public Account(AccountOwner o){
+    public StudentAccount(AccountOwner o, String school){
         super(o);
+        this.school = school;
     }
     
+    
+    public String getSchool()
+    {
+        return this.school;
+    }
     
     public double getBalance(){
         return balance;
     }
-    
     
     public GenericAccount transfer(GenericAccount a, double ammount){
         if(ammount >= -5000){
@@ -21,7 +26,8 @@ public class Account extends GenericAccount {
             a.unsafeAddBalance(ammount);
         }
         
-        
         return a;
     }
+    
+    
 }

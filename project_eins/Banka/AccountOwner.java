@@ -1,6 +1,7 @@
 public class AccountOwner {
     private String name;
     private String lastName;
+    private String uuid;
     //other properties
     
     //constructor

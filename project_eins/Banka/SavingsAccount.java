@@ -1,7 +1,7 @@
-public class Account extends GenericAccount {
+public class SavingsAccount extends GenericAccount {
     
     
-    public Account(AccountOwner o){
+    public SavingsAccount(AccountOwner o){
         super(o);
     }
     
@@ -10,18 +10,22 @@ public class Account extends GenericAccount {
         return balance;
     }
     
+    @Override
+    public void unsafeAddBalance(double a){
+        balance = balance + a + (a * 0.005);
+    }
     
     public GenericAccount transfer(GenericAccount a, double ammount){
-        if(ammount >= -5000){
-            if(balance + 5000 < ammount){
-                ammount = balance + 5000;
+        if(ammount >= 0){
+            if(balance < ammount){
+                ammount = balance;
             }
             
             balance = balance - ammount;
             a.unsafeAddBalance(ammount);
         }
         
-        
         return a;
     }
+    
 }
