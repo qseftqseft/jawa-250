@@ -12,14 +12,16 @@ public class BusinessAccount extends GenericAccount {
     
     @Override
     public void unsafeAddBalance(double a){
-        balance = balance + a + (a * 0.005);
+        balance = balance + a;
     }
     
     public GenericAccount transfer(GenericAccount a, double ammount){
+        Notifier Notifier = new ConsoleNotifier();
+        
         double decAmount = ammount + (ammount * 0.01);
         if(decAmount >= 0){
             if(balance < decAmount){
-                ammount = balance - (ammount * 0.01);
+                ammount = balance - (balance * 0.01);
                 decAmount = ammount + (ammount * 0.01);
             }
             

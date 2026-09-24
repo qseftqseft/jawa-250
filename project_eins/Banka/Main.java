@@ -1,5 +1,7 @@
 public class Main {
     public static void main(String[] args) {
+        Notifier Notifier = new ConsoleNotifier();
+        
         AccountOwner a = new AccountOwner("Já", "ma");
         a.setName("třímetová jámo");
         
@@ -12,8 +14,8 @@ public class Main {
         
         bankAccount = (Account)acc.transfer(bankAccount, 42.9);
         
-        System.out.println( acc.getBalance() );
-        System.out.println( bankAccount.getBalance() );
+        //System.out.println( acc.getBalance() );
+        //System.out.println( bankAccount.getBalance() );
         
         
         
@@ -23,8 +25,8 @@ public class Main {
         
         acc = (Account)student.transfer(acc, 4990);
         
-        System.out.println( acc.getBalance() );
-        System.out.println( student.getBalance() );
+        //System.out.println( acc.getBalance() );
+        //System.out.println( student.getBalance() );
         
         
         
@@ -32,17 +34,26 @@ public class Main {
         
         savings = (SavingsAccount)acc.transfer(savings, 1000);
         
-        System.out.println( acc.getBalance() );
-        System.out.println( savings.getBalance() );
+        //System.out.println( acc.getBalance() );
+        
+        
         
         
         
         BusinessAccount ihatecapitalism = new BusinessAccount(a);
+        //ihatecapitalism.unsafeAddBalance(10);
         
+        Notifier.notify("Savings: " + savings.getBalance() );
+        Notifier.notify("ihatecapitalism: " + ihatecapitalism.getBalance() );
         
         savings = (SavingsAccount)ihatecapitalism.transfer(savings, 1000);
         
-        System.out.println( ihatecapitalism.getBalance() );
-        System.out.println( savings.getBalance() );
+        Notifier.notify( "Transfered 1000 from ihatecapitalism to savings" );
+        Notifier.notify("Savings: " + savings.getBalance() );
+        Notifier.notify("ihatecapitalism: " + ihatecapitalism.getBalance() );
     }
 }
+
+
+
+
