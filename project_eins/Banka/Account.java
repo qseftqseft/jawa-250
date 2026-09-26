@@ -2,15 +2,11 @@ public class Account extends GenericAccount {
     
     
     public Account(AccountOwner o){
-        super(o);
+        super(o, 0, 0, 0);
     }
     
     
-    public double getBalance(){
-        return balance;
-    }
-    
-    
+    /*
     public GenericAccount transfer(GenericAccount a, double ammount){
         if(ammount >= -5000){
             if(balance + 5000 < ammount){
@@ -24,4 +20,5 @@ public class Account extends GenericAccount {
         
         return a;
     }
+    */
 }

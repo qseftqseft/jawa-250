@@ -1,20 +1,17 @@
-public class SavingsAccount extends GenericAccount {
-    
+public class SavingsAccount extends GenericAccount implements Interest {
     
     public SavingsAccount(AccountOwner o){
-        super(o);
+        super(o, 0, 0, -0.5);
     }
     
+    public static double interestRate = 4.9;
     
-    public double getBalance(){
-        return balance;
+    public void calculateInterest(){
+        double interest = balance * interestRate / 100;
+        setBalance(getBalance() + interest);
     }
     
-    @Override
-    public void unsafeAddBalance(double a){
-        balance = balance + a + (a * 0.005);
-    }
-    
+    /*
     public GenericAccount transfer(GenericAccount a, double ammount){
         if(ammount >= 0){
             if(balance < ammount){
@@ -27,5 +24,5 @@ public class SavingsAccount extends GenericAccount {
         
         return a;
     }
-    
+    */
 }

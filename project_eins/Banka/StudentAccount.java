@@ -1,21 +1,21 @@
 public class StudentAccount extends GenericAccount {
     public String school;
     
+    
+    
     public StudentAccount(AccountOwner o, String school){
-        super(o);
+        super(o, -5000, 0, 0);
         this.school = school;
     }
-    
     
     public String getSchool()
     {
         return this.school;
     }
     
-    public double getBalance(){
-        return balance;
-    }
     
+    
+    /*
     public GenericAccount transfer(GenericAccount a, double ammount){
         if(ammount >= -5000){
             if(balance + 5000 < ammount){
@@ -28,6 +28,6 @@ public class StudentAccount extends GenericAccount {
         
         return a;
     }
-    
+    */
     
 }
