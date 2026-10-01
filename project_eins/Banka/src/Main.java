@@ -3,29 +3,43 @@ import java.util.List;
 
 import accounts.*;
 import people.AccountOwner;
+import people.AccountOwnerFactory;
 import transfers.TransferService;
+import transfers.TransferServiceFactory;
 import notifiers.*;
 
 
 public class Main {
     public static void main(String[] args) {
-        Notifier Notifier = new ConsoleNotifier();
-        TransferService TransferService = new TransferService();
+        //industry, Production, FACTORES EVERYWHERE!!!
+        ConsoleNotifierFactory consoleNotifierFactory = new ConsoleNotifierFactory(); //fac
+        TransferServiceFactory transferServiceFactory = new TransferServiceFactory(); //fac
+        AccountOwnerFactory accountOwnerFactory = new AccountOwnerFactory(); //fac
+        AccountFactory accountFactory = new AccountFactory(); //fac
+        StudentAccountFactory studentAccountFactory = new StudentAccountFactory(); //fac
+        SavingsAccountFactory savingsAccountFactory = new SavingsAccountFactory(); //fac
+        BusinessAccountFactory businessAccountFactory = new BusinessAccountFactory(); //fac
         
-        AccountOwner a = new AccountOwner("Já", "ma");
+        
+        Notifier Notifier = consoleNotifierFactory.createConsoleNotifier();
+        
+        TransferService TransferService = transferServiceFactory.creteTransferService();
+        
+        AccountOwner a = accountOwnerFactory.createAccountOwner("Já", "ma");
         a.setName("třímetová jámo");
         
-        Account acc = new Account(a);
+        Account acc = accountFactory.createAccount(a);
         
-        AccountOwner bankOwner = new AccountOwner("šef", "banky");
-        Account bankAccount = new Account(bankOwner);
+        AccountOwner bankOwner = accountOwnerFactory.createAccountOwner("šef", "banky");
         
-        AccountOwner studentO = new AccountOwner("Sud", "vína");
-        StudentAccount student = new StudentAccount(studentO, "Nejvyšší škola povýšenosti ÉTA");
+        Account bankAccount = accountFactory.createAccount(bankOwner);
         
-        SavingsAccount savings = new SavingsAccount(a);
+        AccountOwner studentO = accountOwnerFactory.createAccountOwner("Sud", "vína");
+        StudentAccount student = studentAccountFactory.createStudentAccount(studentO, "Nejvyšší škola povýšenosti ÉTA");
         
-        BusinessAccount ihatecapitalism = new BusinessAccount(a);
+        SavingsAccount savings = savingsAccountFactory.createSavingsAccount(a);
+        
+        BusinessAccount ihatecapitalism = businessAccountFactory.createBusinessAccount(a);
         
         
         
