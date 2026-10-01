@@ -7,9 +7,9 @@ public class StudentAccount extends GenericAccount {
     
     
     
-    public StudentAccount(AccountOwner o, String school){
+    public StudentAccount(AccountOwner o, String school, long accountNumber){
         //o, minimumBalance, outgoingFee, incomingFee
-        super(o, -5000, 0, 0);
+        super(o, -5000, 0, 0, accountNumber);
         this.school = school;
     }
     

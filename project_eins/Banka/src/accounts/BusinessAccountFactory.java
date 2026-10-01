@@ -4,6 +4,9 @@ import people.AccountOwner;
 
 public class BusinessAccountFactory{
     public BusinessAccount createBusinessAccount(AccountOwner o){
-        return new BusinessAccount(o);
+        AccountNumberServiceFactory accountNumberServiceFactory = new AccountNumberServiceFactory();
+        AccountNumberService accountNumberService = AccountNumberServiceFactory.createAccountNumberService();
+        
+        return new BusinessAccount(o, accountNumberService.generateAccountNumber());
     }
 }

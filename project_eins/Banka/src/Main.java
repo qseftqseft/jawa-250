@@ -21,6 +21,7 @@ public class Main {
         BusinessAccountFactory businessAccountFactory = new BusinessAccountFactory(); //fac
         
         
+        
         Notifier Notifier = consoleNotifierFactory.createConsoleNotifier();
         
         TransferService TransferService = transferServiceFactory.creteTransferService();
@@ -55,7 +56,6 @@ public class Main {
         
         Notifier.notify(ihatecapitalism.getBalance());
         Notifier.notify(savings.getBalance());
-        
         
         
         

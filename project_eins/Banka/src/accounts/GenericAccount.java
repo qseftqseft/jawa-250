@@ -5,7 +5,7 @@ import transfers.Withdraw;
 
 public abstract class GenericAccount implements Withdraw {
     private String uuid;
-    private String accountNumber;
+    private long accountNumber;
     private AccountOwner owner;
     protected double balance;
     
@@ -14,12 +14,13 @@ public abstract class GenericAccount implements Withdraw {
     public double incomingFee;
     
     
-    public GenericAccount(AccountOwner o, double minimumBalance1, double outgoingFee1, double incomingFee1){
+    public GenericAccount(AccountOwner o, double minimumBalance1, double outgoingFee1, double incomingFee1, long accountNumber1){
         owner = o;
         balance = 0;
         this.minimumBalance = minimumBalance1;
         this.outgoingFee = outgoingFee1;
         this.incomingFee = incomingFee1;
+        this.accountNumber = accountNumber1;
     }
     
     public double getBalance(){

@@ -5,8 +5,8 @@ import people.AccountOwner;
 public class Account extends GenericAccount {
     
     
-    public Account(AccountOwner o){
+    public Account(AccountOwner o, long accountNumber){
         //o, minimumBalance, outgoingFee, incomingFee
-        super(o, 0, 0, 0);
+        super(o, 0, 0, 0, accountNumber);
     }
 }

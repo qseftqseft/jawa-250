@@ -4,6 +4,9 @@ import people.AccountOwner;
 
 public class StudentAccountFactory{
     public StudentAccount createStudentAccount(AccountOwner o, String school){
-        return new StudentAccount(o, school);
+        AccountNumberServiceFactory accountNumberServiceFactory = new AccountNumberServiceFactory();
+        AccountNumberService accountNumberService = AccountNumberServiceFactory.createAccountNumberService();
+        
+        return new StudentAccount(o, school, accountNumberService.generateAccountNumber());
     }
 }
