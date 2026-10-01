@@ -1,3 +1,7 @@
+package transfers;
+
+import accounts.GenericAccount;
+
 public class TransferService {
     public void withdraw(GenericAccount genericAccount, double ammount){
         double ammountToWithdraw = ammount + (outgoingFee(genericAccount) / 100 * ammount);
@@ -37,7 +41,7 @@ public class TransferService {
     }
     
     public double balance(GenericAccount genericAccount){
-        return genericAccount.balance;
+        return genericAccount.getBalance();
     }
     
     

@@ -1,3 +1,5 @@
+package people;
+
 public class AccountOwner {
     private String name;
     private String lastName;

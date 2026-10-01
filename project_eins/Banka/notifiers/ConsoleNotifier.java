@@ -1,3 +1,5 @@
+package notifiers;
+
 public class ConsoleNotifier implements Notifier {
     public void notify(String message) {
         System.out.println(message);

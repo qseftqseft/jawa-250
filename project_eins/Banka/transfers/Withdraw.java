@@ -1,3 +1,5 @@
+package transfers;
+
 public interface Withdraw {
     public double balance = 0;
     public double minimumBalance = 0;

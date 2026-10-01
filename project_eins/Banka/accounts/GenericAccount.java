@@ -1,3 +1,8 @@
+package accounts;
+
+import people.AccountOwner;
+import transfers.Withdraw;
+
 public abstract class GenericAccount implements Withdraw {
     private String uuid;
     private String accountNumber;

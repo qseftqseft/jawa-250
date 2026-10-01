@@ -1,6 +1,11 @@
+package accounts;
+
+import people.AccountOwner;
+
 public class SavingsAccount extends GenericAccount implements Interest {
     
     public SavingsAccount(AccountOwner o){
+        //o, minimumBalance, outgoingFee, incomingFee
         super(o, 0, 0, -0.5);
     }
     
@@ -10,19 +15,4 @@ public class SavingsAccount extends GenericAccount implements Interest {
         double interest = balance * interestRate / 100;
         setBalance(getBalance() + interest);
     }
-    
-    /*
-    public GenericAccount transfer(GenericAccount a, double ammount){
-        if(ammount >= 0){
-            if(balance < ammount){
-                ammount = balance;
-            }
-            
-            balance = balance - ammount;
-            a.unsafeAddBalance(ammount);
-        }
-        
-        return a;
-    }
-    */
 }
