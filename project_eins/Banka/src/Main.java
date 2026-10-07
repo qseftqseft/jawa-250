@@ -4,8 +4,7 @@ import java.util.List;
 import accounts.*;
 import people.AccountOwner;
 import people.AccountOwnerFactory;
-import transfers.TransferService;
-import transfers.TransferServiceFactory;
+import transfers.*;
 import notifiers.*;
 
 
@@ -19,40 +18,40 @@ public class Main {
         StudentAccountFactory studentAccountFactory = new StudentAccountFactory(); //fac
         SavingsAccountFactory savingsAccountFactory = new SavingsAccountFactory(); //fac
         BusinessAccountFactory businessAccountFactory = new BusinessAccountFactory(); //fac
-        
+        TransferInstanceFactory transferInstanceFactory = new TransferInstanceFactory(); //fac
         
         
         Notifier Notifier = consoleNotifierFactory.createConsoleNotifier();
-        
         TransferService TransferService = transferServiceFactory.creteTransferService();
+        TransferLoggerService transferLoggerService = new TransferLoggerService();
         
         AccountOwner a = accountOwnerFactory.createAccountOwner("Já", "ma");
         a.setName("třímetová jámo");
-        
         Account acc = accountFactory.createAccount(a);
-        
         AccountOwner bankOwner = accountOwnerFactory.createAccountOwner("šef", "banky");
-        
         Account bankAccount = accountFactory.createAccount(bankOwner);
-        
         AccountOwner studentO = accountOwnerFactory.createAccountOwner("Sud", "vína");
         StudentAccount student = studentAccountFactory.createStudentAccount(studentO, "Nejvyšší škola povýšenosti ÉTA");
-        
         SavingsAccount savings = savingsAccountFactory.createSavingsAccount(a);
-        
         BusinessAccount ihatecapitalism = businessAccountFactory.createBusinessAccount(a);
+        
+        
+        
         
         
         
         TransferService.add(acc, 1000);
         
         TransferService.transfer(acc, ihatecapitalism, 500);
+        transferLoggerService.log(transferInstanceFactory.createTransferInstance(acc, ihatecapitalism, 500)); //should prob. be automatic
         
         Notifier.notify(acc.getBalance());
         Notifier.notify(ihatecapitalism.getBalance());
         
         
         TransferService.transfer(ihatecapitalism, savings, 250);
+        transferLoggerService.log(transferInstanceFactory.createTransferInstance(ihatecapitalism, savings, 250));
+        
         
         Notifier.notify(ihatecapitalism.getBalance());
         Notifier.notify(savings.getBalance());
