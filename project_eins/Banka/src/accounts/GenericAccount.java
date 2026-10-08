@@ -29,5 +29,7 @@ public abstract class GenericAccount implements Withdraw {
     public void setBalance(double ammount){
         balance = ammount;
     }
-    
+    public long getAccountNumber(){
+        return accountNumber;
+    }
 }

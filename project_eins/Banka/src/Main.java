@@ -6,6 +6,7 @@ import people.AccountOwner;
 import people.AccountOwnerFactory;
 import transfers.*;
 import notifiers.*;
+import serialization.*;
 
 
 public class Main {
@@ -19,11 +20,14 @@ public class Main {
         SavingsAccountFactory savingsAccountFactory = new SavingsAccountFactory(); //fac
         BusinessAccountFactory businessAccountFactory = new BusinessAccountFactory(); //fac
         TransferInstanceFactory transferInstanceFactory = new TransferInstanceFactory(); //fac
+        GenericAccountSerializableFactory genericAccountSerializableFactory = new GenericAccountSerializableFactory(); //fac
         
         
         Notifier Notifier = consoleNotifierFactory.createConsoleNotifier();
         TransferService TransferService = transferServiceFactory.creteTransferService();
         TransferLoggerService transferLoggerService = new TransferLoggerService();
+        GenericAccountJsonSerializationService genericAccountJsonSerializationService = new GenericAccountJsonSerializationService();
+        GenericAccountXmlSerializationService genericAccountXmlSerializationService = new GenericAccountXmlSerializationService();
         
         AccountOwner a = accountOwnerFactory.createAccountOwner("Já", "ma");
         a.setName("třímetová jámo");
@@ -57,6 +61,19 @@ public class Main {
         Notifier.notify(savings.getBalance());
         
         
+        
+        Notifier.notify(genericAccountJsonSerializationService.serialize(genericAccountSerializableFactory.createGenericAccountSerializable(ihatecapitalism)));
+        
+        
+        List<GenericAccountSerializable> l = new ArrayList<GenericAccountSerializable>();
+        l.add(genericAccountSerializableFactory.createGenericAccountSerializable(acc));
+        l.add(genericAccountSerializableFactory.createGenericAccountSerializable(bankAccount));
+        l.add(genericAccountSerializableFactory.createGenericAccountSerializable(student));
+        l.add(genericAccountSerializableFactory.createGenericAccountSerializable(savings));
+        l.add(genericAccountSerializableFactory.createGenericAccountSerializable(ihatecapitalism));
+        
+        Notifier.notify(genericAccountJsonSerializationService.serializeAll(l));
+        Notifier.notify(genericAccountXmlSerializationService.serializeAll(l));
         
         //bankAccount = (Account)acc.transfer(bankAccount, 42.9);
         
