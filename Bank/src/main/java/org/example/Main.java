@@ -29,6 +29,7 @@ public class Main {
         GenericAccountJsonSerializationService genericAccountJsonSerializationService = new GenericAccountJsonSerializationService();
         GenericAccountXmlSerializationService genericAccountXmlSerializationService = new GenericAccountXmlSerializationService();
         GenericAccountGsonSerializationService genericAccountGsonSerializationService = new GenericAccountGsonSerializationService();
+        GenericAccountJasonSerializationService genericAccountJasonSerializationService = new GenericAccountJasonSerializationService();
 
 
         AccountOwner a = accountOwnerFactory.createAccountOwner("Já", "ma");
@@ -75,7 +76,7 @@ public class Main {
         l.add(genericAccountSerializableFactory.createGenericAccountSerializable(ihatecapitalism));
         
         Notifier.notify(genericAccountGsonSerializationService.serializeAll(l));
-        Notifier.notify(genericAccountXmlSerializationService.serializeAll(l));
+        Notifier.notify(genericAccountJasonSerializationService.serializeAll(l));
         
         //bankAccount = (Account)acc.transfer(bankAccount, 42.9);
         
