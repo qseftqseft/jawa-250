@@ -7,7 +7,7 @@ import people.AccountOwnerFactory;
 import transfers.*;
 import notifiers.*;
 import serialization.*;
-
+import logging.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -30,11 +30,17 @@ public class Main {
         GenericAccountXmlSerializationService genericAccountXmlSerializationService = new GenericAccountXmlSerializationService();
         GenericAccountGsonSerializationService genericAccountGsonSerializationService = new GenericAccountGsonSerializationService();
         GenericAccountJasonSerializationService genericAccountJasonSerializationService = new GenericAccountJasonSerializationService();
-
-
+        
+        LogAccount logAccount = new LogAccount();
+        
         AccountOwner a = accountOwnerFactory.createAccountOwner("Já", "ma");
         a.setName("třímetová jámo");
-        Account acc = accountFactory.createAccount(a);
+        
+        
+        logAccount.logTimeBefore();
+        Account acc = logAccount.logTime(accountFactory.createAccount(a));
+        
+        
         AccountOwner bankOwner = accountOwnerFactory.createAccountOwner("šef", "banky");
         Account bankAccount = accountFactory.createAccount(bankOwner);
         AccountOwner studentO = accountOwnerFactory.createAccountOwner("Sud", "vína");
@@ -75,8 +81,8 @@ public class Main {
         l.add(genericAccountSerializableFactory.createGenericAccountSerializable(savings));
         l.add(genericAccountSerializableFactory.createGenericAccountSerializable(ihatecapitalism));
         
-        Notifier.notify(genericAccountGsonSerializationService.serializeAll(l));
-        Notifier.notify(genericAccountJasonSerializationService.serializeAll(l));
+        //Notifier.notify(genericAccountGsonSerializationService.serializeAll(l));
+        //Notifier.notify(genericAccountJasonSerializationService.serializeAll(l));
         
         //bankAccount = (Account)acc.transfer(bankAccount, 42.9);
         
