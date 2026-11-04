@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import accounts.*;
+import decorators.*;
 import people.AccountOwner;
 import people.AccountOwnerFactory;
 import transfers.*;
@@ -13,9 +14,8 @@ public class Main {
     public static void main(String[] args) {
         //industry, Production, FACTORES EVERYWHERE!!!
         ConsoleNotifierFactory consoleNotifierFactory = new ConsoleNotifierFactory(); //fac
-        TransferServiceFactory transferServiceFactory = new TransferServiceFactory(); //fac
-        AccountOwnerFactory accountOwnerFactory = new AccountOwnerFactory(); //fac
         AccountFactory accountFactory = new AccountFactory(); //fac
+        AccountOwnerFactory accountOwnerFactory = new AccountOwnerFactory(); //fac
         StudentAccountFactory studentAccountFactory = new StudentAccountFactory(); //fac
         SavingsAccountFactory savingsAccountFactory = new SavingsAccountFactory(); //fac
         BusinessAccountFactory businessAccountFactory = new BusinessAccountFactory(); //fac
@@ -24,21 +24,36 @@ public class Main {
         
         
         Notifier Notifier = consoleNotifierFactory.createConsoleNotifier();
-        TransferService TransferService = transferServiceFactory.creteTransferService();
-        TransferLoggerService transferLoggerService = new TransferLoggerService();
         GenericAccountJsonSerializationService genericAccountJsonSerializationService = new GenericAccountJsonSerializationService();
         GenericAccountXmlSerializationService genericAccountXmlSerializationService = new GenericAccountXmlSerializationService();
         GenericAccountGsonSerializationService genericAccountGsonSerializationService = new GenericAccountGsonSerializationService();
         GenericAccountJasonSerializationService genericAccountJasonSerializationService = new GenericAccountJasonSerializationService();
         
-        LogAccount logAccount = new LogAccount();
+        
         
         AccountOwner a = accountOwnerFactory.createAccountOwner("Já", "ma");
         a.setName("třímetová jámo");
         
         
-        logAccount.logTimeBefore();
-        Account acc = logAccount.logTime(accountFactory.createAccount(a));
+        
+        IAccountService accountService = new AccountService();
+        IAccountService accountServiceWithLogin = new AccountLoggingService(accountService);
+        IAccountService accountServiceWithTimeLogin = new AccountLoggingWithTimeService(accountService);
+        IAccountService accountServiceWithLoginAndTimeLogin= new AccountLoggingService(accountServiceWithTimeLogin);
+        
+        System.out.println("---");
+        
+        System.out.println("LOGGING");
+        GenericAccount acc = accountServiceWithLogin.createAccount(a, 1000);
+        System.out.println("---");
+        
+        System.out.println("LOGGING WITH TIME");
+        GenericAccount businessAccount = accountServiceWithTimeLogin.createBusinessAccount(a, 1000);
+        System.out.println("---");
+        
+        System.out.println("LOGGING AND LOGGING WITH TIME");
+        GenericAccount studentAccount = accountServiceWithLoginAndTimeLogin.createStudentAccount(a, 100, "Vyšší než nejvyšší škola povýšenosti PÉTA");
+        System.out.println("---");
         
         
         AccountOwner bankOwner = accountOwnerFactory.createAccountOwner("šef", "banky");
@@ -56,14 +71,14 @@ public class Main {
         TransferService.add(acc, 1000);
         
         TransferService.transfer(acc, ihatecapitalism, 500);
-        transferLoggerService.log(transferInstanceFactory.createTransferInstance(acc, ihatecapitalism, 500)); //should prob. be automatic
+        transferInstanceFactory.createTransferInstance(acc, ihatecapitalism, 500);
         
         Notifier.notify(acc.getBalance());
         Notifier.notify(ihatecapitalism.getBalance());
         
         
         TransferService.transfer(ihatecapitalism, savings, 250);
-        transferLoggerService.log(transferInstanceFactory.createTransferInstance(ihatecapitalism, savings, 250));
+        transferInstanceFactory.createTransferInstance(ihatecapitalism, savings, 250);
         
         
         Notifier.notify(ihatecapitalism.getBalance());
