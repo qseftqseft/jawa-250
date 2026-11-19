@@ -1,12 +1,12 @@
 package accounts;
 
 import people.AccountOwner;
+import containers.Container;
 
 public class StudentAccountFactory{
     public StudentAccount createStudentAccount(AccountOwner o, String school){
-        AccountNumberServiceFactory accountNumberServiceFactory = new AccountNumberServiceFactory();
-        AccountNumberService accountNumberService = AccountNumberServiceFactory.createAccountNumberService();
+        Container container = new Container();
         
-        return new StudentAccount(o, school, accountNumberService.generateAccountNumber());
+        return new StudentAccount(o, school, container.accountNumberService.generateAccountNumber());
     }
 }

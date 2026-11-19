@@ -7,11 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 
-
 public class LogAccount{
-    AccountFactory accountFactory = new AccountFactory();
-    
-    
     public void logBefore (){
         System.out.println("Creating Account");
     }

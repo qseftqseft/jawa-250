@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 public class GenericAccountGsonSerializationService {
     
     Gson gson = new Gson();
-    GenericAccountSerializableFactory bankAccountSerializeFactory = new GenericAccountSerializableFactory();
     
     public String serialize(serialization.GenericAccountSerializable bankAccount) {
         return gson.toJson(bankAccount);
