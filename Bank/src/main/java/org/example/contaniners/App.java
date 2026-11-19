@@ -16,20 +16,22 @@ import logging.*;
 public class App {
     public static void run(){
         Container container = new Container();
+        
+        
         AccountOwner a = container.accountOwnerFactory.createAccountOwner("Já", "ma");
         a.setName("třímetová jámo");
         
-        GenericAccount acc = container.accountServiceWithLoginAndTimeLogin.createAccount(a, 1000);
-        GenericAccount businessAccount = container.accountServiceWithLoginAndTimeLogin.createBusinessAccount(a, 1000);
-        GenericAccount studentAccount = container.accountServiceWithLoginAndTimeLogin.createStudentAccount(a, 100, "Vyšší než nejvyšší škola povýšenosti PÉTA");
+        GenericAccount acc = container.accountServiceWithLoginAndTimeLogin.createAccount(a, 1000, container);
+        GenericAccount businessAccount = container.accountServiceWithLoginAndTimeLogin.createBusinessAccount(a, 1000, container);
+        GenericAccount studentAccount = container.accountServiceWithLoginAndTimeLogin.createStudentAccount(a, 100, "Vyšší než nejvyšší škola povýšenosti PÉTA", container);
         
         
         AccountOwner bankOwner = container.accountOwnerFactory.createAccountOwner("šef", "banky");
-        Account bankAccount = container.accountFactory.createAccount(bankOwner);
+        Account bankAccount = container.accountFactory.createAccount(bankOwner, container);
         AccountOwner studentO = container.accountOwnerFactory.createAccountOwner("Sud", "vína");
-        StudentAccount student = container.studentAccountFactory.createStudentAccount(studentO, "Nejvyšší škola povýšenosti ÉTA");
-        SavingsAccount savings = container.savingsAccountFactory.createSavingsAccount(a);
-        BusinessAccount ihatecapitalism = container.businessAccountFactory.createBusinessAccount(a);
+        StudentAccount student = container.studentAccountFactory.createStudentAccount(studentO, "Nejvyšší škola povýšenosti ÉTA", container);
+        SavingsAccount savings = container.savingsAccountFactory.createSavingsAccount(a, container);
+        BusinessAccount ihatecapitalism = container.businessAccountFactory.createBusinessAccount(a, container);
         
         
         
@@ -67,13 +69,13 @@ public class App {
     public static void TestLogging(AccountOwner a, Container container){
         System.out.println("---");
         System.out.println("LOGGING");
-        GenericAccount acc = container.accountServiceWithLogin.createAccount(a, 1000);
+        GenericAccount acc = container.accountServiceWithLogin.createAccount(a, 1000, container);
         System.out.println("---");
         System.out.println("LOGGING WITH TIME");
-        GenericAccount businessAccount = container.accountServiceWithTimeLogin.createBusinessAccount(a, 1000);
+        GenericAccount businessAccount = container.accountServiceWithTimeLogin.createBusinessAccount(a, 1000, container);
         System.out.println("---");
         System.out.println("LOGGING AND LOGGING WITH TIME");
-        GenericAccount studentAccount = container.accountServiceWithLoginAndTimeLogin.createStudentAccount(a, 100, "Vyšší než nejvyšší škola povýšenosti PÉTA");
+        GenericAccount studentAccount = container.accountServiceWithLoginAndTimeLogin.createStudentAccount(a, 100, "Vyšší než nejvyšší škola povýšenosti PÉTA", container);
         System.out.println("---");
     }
 }

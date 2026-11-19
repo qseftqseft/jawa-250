@@ -12,37 +12,29 @@ public class AccountService implements IAccountService {
     List<GenericAccount> accounts = new ArrayList<>();
     
     
-    public Account createAccount(AccountOwner owner, double balance) {
-        Container container = new Container();
-        
-        Account account = container.accountFactory.createAccount(owner);
+    public Account createAccount(AccountOwner owner, double balance, Container container) {
+        Account account = container.accountFactory.createAccount(owner, container);
         accounts.add(account);
 
         return account;
     }
 
-    public StudentAccount createStudentAccount(AccountOwner owner, double balance, String school) {    
-        Container container = new Container();
-        
-        StudentAccount studentAccount = container.studentAccountFactory.createStudentAccount(owner, school);
+    public StudentAccount createStudentAccount(AccountOwner owner, double balance, String school, Container container) {
+        StudentAccount studentAccount = container.studentAccountFactory.createStudentAccount(owner, school, container);
         accounts.add(studentAccount);
 
         return studentAccount;
     }
 
-    public SavingsAccount createSavingAccount(AccountOwner owner, double balance) {
-        Container container = new Container();
-        
-        SavingsAccount savingsAccount = container.savingsAccountFactory.createSavingsAccount(owner);
+    public SavingsAccount createSavingAccount(AccountOwner owner, double balance, Container container) {
+        SavingsAccount savingsAccount = container.savingsAccountFactory.createSavingsAccount(owner, container);
         accounts.add(savingsAccount);
 
         return savingsAccount;
     }
 
-    public BusinessAccount createBusinessAccount(AccountOwner owner, double balance) {
-        Container container = new Container();
-        
-        BusinessAccount businessAccount = container.businessAccountFactory.createBusinessAccount(owner);
+    public BusinessAccount createBusinessAccount(AccountOwner owner, double balance, Container container) {
+        BusinessAccount businessAccount = container.businessAccountFactory.createBusinessAccount(owner, container);
         accounts.add(businessAccount);
 
         return businessAccount;
