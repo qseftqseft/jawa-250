@@ -36,7 +36,7 @@ public class BalanceCurrencyExchangable{
         balanceInCzk = (balanceInCzk * rate) / newRate;
         rate = newRate;
     }
-    public static BalanceCurrencyExchangable doubleToBalanceCurrencyExchangable(double ammount){
-        return new BalanceCurrencyExchangable(ammount, "CZK", 1);
+    public static BalanceCurrencyExchangable create(double ammount, String name, double rate1){
+        return new BalanceCurrencyExchangable(ammount, name, rate1);
     }
 }

@@ -15,6 +15,7 @@ public class AccountService implements IAccountService {
     
     public Account createAccount(AccountOwner owner, BalanceCurrencyExchangable balance, Container container) {
         Account account = container.accountFactory.createAccount(owner, container);
+        account.setBalance(balance);
         accounts.add(account);
 
         return account;
@@ -22,6 +23,7 @@ public class AccountService implements IAccountService {
 
     public StudentAccount createStudentAccount(AccountOwner owner, BalanceCurrencyExchangable balance, String school, Container container) {
         StudentAccount studentAccount = container.studentAccountFactory.createStudentAccount(owner, school, container);
+        studentAccount.setBalance(balance);
         accounts.add(studentAccount);
 
         return studentAccount;
@@ -29,6 +31,7 @@ public class AccountService implements IAccountService {
 
     public SavingsAccount createSavingAccount(AccountOwner owner, BalanceCurrencyExchangable balance, Container container) {
         SavingsAccount savingsAccount = container.savingsAccountFactory.createSavingsAccount(owner, container);
+        savingsAccount.setBalance(balance);
         accounts.add(savingsAccount);
 
         return savingsAccount;
@@ -36,6 +39,7 @@ public class AccountService implements IAccountService {
 
     public BusinessAccount createBusinessAccount(AccountOwner owner, BalanceCurrencyExchangable balance, Container container) {
         BusinessAccount businessAccount = container.businessAccountFactory.createBusinessAccount(owner, container);
+        businessAccount.setBalance(balance);
         accounts.add(businessAccount);
 
         return businessAccount;

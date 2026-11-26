@@ -17,21 +17,14 @@ public class App {
     public static void run(){
         Container container = new Container();
         
-        
-        BalanceCurrencyExchangable am = new BalanceCurrencyExchangable(0, "CZK", 1);
-        
-        
-        
         AccountOwner a = container.accountOwnerFactory.createAccountOwner("Já", "ma");
         a.setName("třímetová jámo");
         
+        BalanceCurrencyExchangable balanceCurrencyExchangable = new BalanceCurrencyExchangable(0, "CZK", 1);
         
-        am.setBalance(1000);
-        GenericAccount acc = container.accountService.createAccount(a, am, container);
-        GenericAccount businessAccount = container.accountServiceWithLoginAndTimeLogin.createBusinessAccount(a, am, container);
-        
-        am.setBalance(100);
-        GenericAccount studentAccount = container.accountServiceWithLoginAndTimeLogin.createStudentAccount(a, am, "Vyšší než nejvyšší škola povýšenosti PÉTA", container);
+        GenericAccount acc = container.accountService.createAccount(a, balanceCurrencyExchangable.create(50, "EUR", 0.04), container);
+        GenericAccount businessAccount = container.accountServiceWithLoginAndTimeLogin.createBusinessAccount(a, BalanceCurrencyExchangable.create(1000, "CZK", 1), container);
+        GenericAccount studentAccount = container.accountServiceWithLoginAndTimeLogin.createStudentAccount(a, BalanceCurrencyExchangable.create(100, "CZK", 1), "Vyšší než nejvyšší škola povýšenosti PÉTA", container);
         
         
         AccountOwner bankOwner = container.accountOwnerFactory.createAccountOwner("šef", "banky");
@@ -42,24 +35,24 @@ public class App {
         BusinessAccount ihatecapitalism = container.businessAccountFactory.createBusinessAccount(a, container);
         
         
+        //am.setBalance(100);
+        //acc.setBalance(am);
+        container.Notifier.notify(acc.getBalance().getBalance());
         
         
         
-        am.setBalance(1000);
-        TransferService.add(acc, am);
+        TransferService.add(acc, BalanceCurrencyExchangable.create(1000, "CZK", 1));
         
         
-        am.setBalance(500);
-        TransferService.transfer(acc, ihatecapitalism, am);
-        container.transferInstanceFactory.createTransferInstance(acc, ihatecapitalism, am);
+        TransferService.transfer(acc, ihatecapitalism, BalanceCurrencyExchangable.create(500, "CZK", 1));
+        container.transferInstanceFactory.createTransferInstance(acc, ihatecapitalism, BalanceCurrencyExchangable.create(500, "CZK", 1));
         
         container.Notifier.notify(acc.getBalance().getBalance());
         container.Notifier.notify(ihatecapitalism.getBalance().getBalance());
         
         
-        am.setBalance(250);
-        TransferService.transfer(ihatecapitalism, savings, am);
-        container.transferInstanceFactory.createTransferInstance(ihatecapitalism, savings, am);
+        TransferService.transfer(ihatecapitalism, savings, BalanceCurrencyExchangable.create(498, "CZK", 1));
+        container.transferInstanceFactory.createTransferInstance(ihatecapitalism, savings, BalanceCurrencyExchangable.create(500, "CZK", 1));
         
         
         container.Notifier.notify(ihatecapitalism.getBalance().getBalance());
