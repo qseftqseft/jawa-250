@@ -37,7 +37,9 @@ public class App {
         
         //am.setBalance(100);
         //acc.setBalance(am);
-        container.Notifier.notify(acc.getBalance().getBalance());
+        
+        container.Notifier.notify("EUR: " + acc.getBalance().getBalance());
+        container.Notifier.notify("CZK: " + acc.getBalanceInCzk());
         
         
         
