@@ -18,12 +18,20 @@ public class App {
         Container container = new Container();
         
         
+        BalanceCurrencyExchangable am = new BalanceCurrencyExchangable(0, "CZK", 1);
+        
+        
+        
         AccountOwner a = container.accountOwnerFactory.createAccountOwner("Já", "ma");
         a.setName("třímetová jámo");
         
-        GenericAccount acc = container.accountServiceWithLoginAndTimeLogin.createAccount(a, 1000, container);
-        GenericAccount businessAccount = container.accountServiceWithLoginAndTimeLogin.createBusinessAccount(a, 1000, container);
-        GenericAccount studentAccount = container.accountServiceWithLoginAndTimeLogin.createStudentAccount(a, 100, "Vyšší než nejvyšší škola povýšenosti PÉTA", container);
+        
+        am.setBalance(1000);
+        GenericAccount acc = container.accountService.createAccount(a, am, container);
+        GenericAccount businessAccount = container.accountServiceWithLoginAndTimeLogin.createBusinessAccount(a, am, container);
+        
+        am.setBalance(100);
+        GenericAccount studentAccount = container.accountServiceWithLoginAndTimeLogin.createStudentAccount(a, am, "Vyšší než nejvyšší škola povýšenosti PÉTA", container);
         
         
         AccountOwner bankOwner = container.accountOwnerFactory.createAccountOwner("šef", "banky");
@@ -33,22 +41,25 @@ public class App {
         SavingsAccount savings = container.savingsAccountFactory.createSavingsAccount(a, container);
         BusinessAccount ihatecapitalism = container.businessAccountFactory.createBusinessAccount(a, container);
         
-        BalanceCurrencyExchangable am = new BalanceCurrencyExchangable(0, "CZK", 1);
         
         
         
         
-        TransferService.add(acc, 1000);
+        am.setBalance(1000);
+        TransferService.add(acc, am);
         
-        TransferService.transfer(acc, ihatecapitalism, 500);
-        container.transferInstanceFactory.createTransferInstance(acc, ihatecapitalism, 500);
+        
+        am.setBalance(500);
+        TransferService.transfer(acc, ihatecapitalism, am);
+        container.transferInstanceFactory.createTransferInstance(acc, ihatecapitalism, am);
         
         container.Notifier.notify(acc.getBalance().getBalance());
         container.Notifier.notify(ihatecapitalism.getBalance().getBalance());
         
         
-        TransferService.transfer(ihatecapitalism, savings, 250);
-        container.transferInstanceFactory.createTransferInstance(ihatecapitalism, savings, 250);
+        am.setBalance(250);
+        TransferService.transfer(ihatecapitalism, savings, am);
+        container.transferInstanceFactory.createTransferInstance(ihatecapitalism, savings, am);
         
         
         container.Notifier.notify(ihatecapitalism.getBalance().getBalance());
@@ -67,16 +78,22 @@ public class App {
         l.add(container.genericAccountSerializableFactory.createGenericAccountSerializable(ihatecapitalism));
         
     }
-    public static void TestLogging(AccountOwner a, Container container){
+    /*public static void TestLogging(AccountOwner a, Container container){
         System.out.println("---");
         System.out.println("LOGGING");
-        GenericAccount acc = container.accountServiceWithLogin.createAccount(a, 1000, container);
+        
+        
+        am.setBalance(1000);
+        GenericAccount acc = container.accountServiceWithLogin.createAccount(a, am, container);
         System.out.println("---");
         System.out.println("LOGGING WITH TIME");
-        GenericAccount businessAccount = container.accountServiceWithTimeLogin.createBusinessAccount(a, 1000, container);
+        
+        GenericAccount businessAccount = container.accountServiceWithTimeLogin.createBusinessAccount(a, am, container);
         System.out.println("---");
         System.out.println("LOGGING AND LOGGING WITH TIME");
-        GenericAccount studentAccount = container.accountServiceWithLoginAndTimeLogin.createStudentAccount(a, 100, "Vyšší než nejvyšší škola povýšenosti PÉTA", container);
+        
+        am.setBalance(100);
+        GenericAccount studentAccount = container.accountServiceWithLoginAndTimeLogin.createStudentAccount(a, am, "Vyšší než nejvyšší škola povýšenosti PÉTA", container);
         System.out.println("---");
-    }
+    }*/
 }

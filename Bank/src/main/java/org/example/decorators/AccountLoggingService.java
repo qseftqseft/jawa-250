@@ -4,6 +4,7 @@ import accounts.GenericAccount;
 import accounts.IAccountService;
 import people.AccountOwner;
 import containers.Container;
+import money.BalanceCurrencyExchangable;
 
 import java.time.LocalTime;
 import java.util.List;
@@ -17,7 +18,7 @@ public class AccountLoggingService implements IAccountService {
     }
 
     @Override
-    public GenericAccount createAccount(AccountOwner owner, double balance, Container container) {
+    public GenericAccount createAccount(AccountOwner owner, BalanceCurrencyExchangable balance, Container container) {
         this.logStart();
         GenericAccount account = this.service.createAccount(owner, balance, container);
         this.logEnd();
@@ -26,7 +27,7 @@ public class AccountLoggingService implements IAccountService {
     }
 
     @Override
-    public GenericAccount createStudentAccount(AccountOwner owner, double balance, String school, Container container) {
+    public GenericAccount createStudentAccount(AccountOwner owner, BalanceCurrencyExchangable balance, String school, Container container) {
         this.logStart();
         GenericAccount account = this.service.createStudentAccount(owner, balance, school, container);
         this.logEnd();
@@ -35,7 +36,7 @@ public class AccountLoggingService implements IAccountService {
     }
 
     @Override
-    public GenericAccount createSavingAccount(AccountOwner owner, double balance, Container container) {
+    public GenericAccount createSavingAccount(AccountOwner owner, BalanceCurrencyExchangable balance, Container container) {
         this.logStart();
         GenericAccount account = this.service.createSavingAccount(owner, balance, container);
         this.logEnd();
@@ -44,7 +45,7 @@ public class AccountLoggingService implements IAccountService {
     }
 
     @Override
-    public GenericAccount createBusinessAccount(AccountOwner owner, double balance, Container container) {
+    public GenericAccount createBusinessAccount(AccountOwner owner, BalanceCurrencyExchangable balance, Container container) {
         this.logStart();
         GenericAccount account = this.service.createBusinessAccount(owner, balance, container);
         this.logEnd();
@@ -56,7 +57,7 @@ public class AccountLoggingService implements IAccountService {
     public List<GenericAccount> getAccounts() {
         return this.service.getAccounts();
     }
-
+    
     private void logStart() {
         System.out.println("accounting now");
     }
