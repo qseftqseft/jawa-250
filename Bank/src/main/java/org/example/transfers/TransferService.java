@@ -1,9 +1,11 @@
 package transfers;
 
 import accounts.GenericAccount;
+import money.BalanceCurrencyExchangable;
 
 public class TransferService {
-    public static void withdraw(GenericAccount genericAccount, double ammount){
+    public static void withdraw(GenericAccount genericAccount, BalanceCurrencyExchangable Bammount){
+        double ammount = Bammount.getBalanceInCzk();
         double ammountToWithdraw = ammount + (outgoingFee(genericAccount) / 100 * ammount);
         double newBalance = balance(genericAccount) - ammountToWithdraw;
         
@@ -11,18 +13,19 @@ public class TransferService {
             throw new RuntimeException("Insufficient funds.");
         }
         
-        genericAccount.setBalance(newBalance);
+        genericAccount.setBalanceInCzk(newBalance);
     }
     
-    public static void add(GenericAccount genericAccount, double ammount){
+    public static void add(GenericAccount genericAccount, BalanceCurrencyExchangable Bammount){
+        double ammount = Bammount.getBalanceInCzk();
         double ammountToAdd = ammount - (incomingFee(genericAccount) / 100 * ammount);
         double newBalance = balance(genericAccount) + ammountToAdd;
         
-        genericAccount.setBalance(newBalance);
+        genericAccount.setBalanceInCzk(newBalance);
     }
     
-    public static void transfer(GenericAccount outgoingGenericAccount, GenericAccount incomingGenericAccount, double ammount){
-        if(ammount < 0) return;
+    public static void transfer(GenericAccount outgoingGenericAccount, GenericAccount incomingGenericAccount, BalanceCurrencyExchangable ammount){
+        if(ammount.getBalanceInCzk() < 0) return;
         withdraw(outgoingGenericAccount, ammount);
         add(incomingGenericAccount, ammount);
     }
@@ -41,7 +44,7 @@ public class TransferService {
     }
     
     public static double balance(GenericAccount genericAccount){
-        return genericAccount.getBalance();
+        return genericAccount.getBalanceInCzk();
     }
     
     

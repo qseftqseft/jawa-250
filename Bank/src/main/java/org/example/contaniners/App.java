@@ -11,7 +11,7 @@ import transfers.*;
 import notifiers.*;
 import serialization.*;
 import logging.*;
-
+import money.*;
 
 public class App {
     public static void run(){
@@ -33,7 +33,7 @@ public class App {
         SavingsAccount savings = container.savingsAccountFactory.createSavingsAccount(a, container);
         BusinessAccount ihatecapitalism = container.businessAccountFactory.createBusinessAccount(a, container);
         
-        
+        BalanceCurrencyExchangable am = new BalanceCurrencyExchangable(0, "CZK", 1);
         
         
         
@@ -43,16 +43,16 @@ public class App {
         TransferService.transfer(acc, ihatecapitalism, 500);
         container.transferInstanceFactory.createTransferInstance(acc, ihatecapitalism, 500);
         
-        container.Notifier.notify(acc.getBalance());
-        container.Notifier.notify(ihatecapitalism.getBalance());
+        container.Notifier.notify(acc.getBalance().getBalance());
+        container.Notifier.notify(ihatecapitalism.getBalance().getBalance());
         
         
         TransferService.transfer(ihatecapitalism, savings, 250);
         container.transferInstanceFactory.createTransferInstance(ihatecapitalism, savings, 250);
         
         
-        container.Notifier.notify(ihatecapitalism.getBalance());
-        container.Notifier.notify(savings.getBalance());
+        container.Notifier.notify(ihatecapitalism.getBalance().getBalance());
+        container.Notifier.notify(savings.getBalance().getBalance());
         
         
         
@@ -65,6 +65,7 @@ public class App {
         l.add(container.genericAccountSerializableFactory.createGenericAccountSerializable(student));
         l.add(container.genericAccountSerializableFactory.createGenericAccountSerializable(savings));
         l.add(container.genericAccountSerializableFactory.createGenericAccountSerializable(ihatecapitalism));
+        
     }
     public static void TestLogging(AccountOwner a, Container container){
         System.out.println("---");

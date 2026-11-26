@@ -12,7 +12,7 @@ public class SavingsAccount extends GenericAccount implements Interest {
     public static double interestRate = 4.9;
     
     public void calculateInterest(){
-        double interest = balance * interestRate / 100;
-        setBalance(getBalance() + interest);
+        double interest = getBalanceInCzk() * interestRate / 100;
+        setBalanceInCzk(getBalanceInCzk() + interest);
     }
 }
